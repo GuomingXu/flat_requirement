@@ -1,0 +1,13 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Obsidian workspace state (local only)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+
+# Obsidian plugin binaries (reinstallable, large files)
+.obsidian/plugins/*/main.js
+.obsidian/plugins/*/styles.css
+.obsidian/plugins/obsidian-git/obsidian_askpass.sh
