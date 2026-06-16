@@ -12,7 +12,7 @@
 
 ## 当前阶段
 
-目前项目仍处在日常需求记录阶段。你正在通过 diary study 的方式，使用 Notion 记录每天的生活场景。
+目前项目仍处在日常需求记录阶段。你正在通过 diary study 的方式，使用 Obisdian 记录每天的生活场景。
 
 在这个阶段，我的工作重点是帮助你 review 每日场景记录，并给出改进意见，包括：
 
@@ -35,54 +35,65 @@
 
 但这些内容目前还没有开始，当前只需要专注于如何记录每天的场景。
 
-## Notion 资料入口
+## Obsidian 资料入口
 
-当前 Notion 页面地址：
-
-[初步需求](https://app.notion.com/p/37b3c595949480a8a1cddf335ef42235?source=copy_link)
-
-页面 ID：
-
-`37b3c595949480a8a1cddf335ef42235`
-
-可以通过 Notion plugin 访问该页面。
+当前文件夹
 
 ## 图片与说明
 
-Notion 页面中会包含图片，这些图片是需求资料的一部分，不应只当作装饰。
+页面中会包含图片，这些图片是需求资料的一部分，不应只当作装饰。
 
-图片的 caption / 图片说明中可能会记录：
+当前项目主要使用 Obsidian 的图片嵌入语法，例如：
 
-- 图片是什么物品或设备
-- 物品尺寸
-- 型号
-- 使用场景
-- 与收纳、动线或空间规划相关的重要信息
+```markdown
+![[marset_ginger.png|marset_ginger.png|500]]
+```
 
-通过 Notion plugin 读取页面时，图片说明可能会以 Markdown 图片的 alt text 形式出现，例如 `![图片说明](图片链接)`。后续 review 每日场景记录时，需要一并参考这些图片说明，尤其是尺寸和型号信息。
+读取页面时，应把第二段 `|` 后面的文本视为图片的 alt 文本。当前约定中，alt 文本就是图片文件名。后续 review 每日场景记录时，需要一并参考图片本身和图片所在段落的文字说明，不要只读取文字而忽略图片。
 
 ## 本地图片文件对应规则
 
-Notion 图片的 caption / 图片说明中会用括号标注对应的本地文件名，例如 `租的房子的结构图 (rent.png)`。
+所有本地图片文件统一存放在当前文件夹下的 `src/` 文件夹中。
 
-后续读取图片资料时，应优先按以下逻辑处理：
+Obsidian 图片引用的对应关系为：
 
-1. 先通过 Notion plugin 读取页面，查看图片 caption / 图片说明。
-2. 从 caption / 图片说明的括号中提取本地文件名。
-3. 到项目的 `src/` 文件夹中查找同名文件。
-4. 如果本地文件存在，应优先读取本地文件，而不是依赖 Notion 返回的临时图片链接。
-5. 如果 Notion caption 中的文件名和 `src/` 中的文件无法对应，必须明确告诉你，不要猜测或擅自替代。
+- 图片引用格式：`![[图片文件名|alt文本|显示宽度]]`
+- 图片文件路径：`src/图片文件名`
+- alt 文本：当前应与图片文件名一致
+- 显示宽度：仅用于 Obsidian 展示，不作为图片文件路径的一部分
 
-目前已知的 Notion 图片说明与本地文件对应关系：
+如果遇到图片引用，需要按以下顺序处理：
 
-- `租的房子的结构图 (rent.png)` -> `src/rent.png`
-- `飞利浦 DreamStation Auto CPAP - 19.7cm x 19.3cm x 8.4cm. (DreamStation.png)` -> `src/DreamStation.png`
-- `狮王泡沫洗手液 (lion.png)` -> `src/lion.png`
-- `东芝小体积ET-VD6100 10L，尺寸：20.7cm x 37.05cm x 24.2cm (ET-VD6100.png)` -> `src/ET-VD6100.png`
+1. 从 Obsidian 图片引用中读取图片文件名和 alt 文本。
+2. 确认 alt 文本是否与图片文件名一致。
+3. 到 `src/` 文件夹下查找同名图片文件。
+4. 如果文件不存在、大小写不一致、alt 文本与文件名不一致，或图片无法读取，需要明确告诉用户。
+
+当前已扫描到的图片引用与本地文件对应关系如下：
+
+| Markdown 文件 | alt 文本 | 本地图片文件 |
+| --- | --- | --- |
+| `喜欢的家具记录.md` | `marset_ginger.png` | `src/marset_ginger.png` |
+| `喜欢的家具记录.md` | `Flos-Pim-Image-Luminaire-Wall-265-Chromatica.jpg` | `src/Flos-Pim-Image-Luminaire-Wall-265-Chromatica.jpg` |
+| `喜欢的家具记录.md` | `akari_75000_1A.jpg` | `src/akari_75000_1A.jpg` |
+| `喜欢的家具记录.md` | `nychairx.jpg` | `src/nychairx.jpg` |
+| `喜欢的家具记录.md` | `FARGO.jpg` | `src/FARGO.jpg` |
+| `喜欢的家具记录.md` | `Dyson_CF06.jpg` | `src/Dyson_CF06.jpg` |
+| `喜欢的家具记录.md` | `Ginger-P-with-ambient-2_LR-800x1200.jpg` | `src/Ginger-P-with-ambient-2_LR-800x1200.jpg` |
+| `喜欢的家具记录.md` | `muji_100.jpg` | `src/muji_100.jpg` |
+| `喜欢的家具记录.md` | `muji_159x380.jpg` | `src/muji_159x380.jpg` |
+| `家电/呼吸机.md` | `DreamStation.png` | `src/DreamStation.png` |
+| `家电/扫地机器人.md` | `roborock.jpg` | `src/roborock.jpg` |
+| `家电/扫地机器人.md` | `roborock_construction.jpg` | `src/roborock_construction.jpg` |
+| `场景需求分析.md` | `rent.png` | `src/rent.png` |
+| `场景需求分析.md` | `new_flat.png` | `src/new_flat.png` |
+| `生活用品/耳塞.md` | `ohropax.jpg` | `src/ohropax.jpg` |
+
+本次检查结果：以上 Markdown 图片引用的 alt 文本均与图片文件名一致，并且都能在 `src/` 文件夹中找到对应图片文件。
 
 ## 信息准确性与沟通原则
 
-如果遇到出错、信息前后不一致、资料缺失、图片或 Notion 内容读取困难等情况，必须直接告诉你，让你知道发生了什么。
+如果遇到出错、信息前后不一致、资料缺失、图片或 内容读取困难等情况，必须直接告诉你，让你知道发生了什么。
 
 不要擅自猜测、补全或创造你没有记录过的需求。不要为了让内容看起来完整而添油加醋，也不要为了讨好你而把不确定的信息说成确定结论。
 
